@@ -1,0 +1,32 @@
+/* evscript demo */
+include "scripts/header.evs";
+#asm
+	include "res/charmap.inc"
+	include "entity.inc"
+#end
+
+npc xWalkAround {
+	lock();
+	say("Hello, World!<WAITBTN>");
+	wait();
+	set_frame("self", ENTITY_FRAME_STEP);
+	// Move right for one second.
+	repeat 60 {
+		move("self", 12, 0);
+		yield;
+	}
+	set_frame("self", ENTITY_FRAME_IDLE);
+	/* TODO: use `delay(60);` instead? */
+	repeat 60 {
+		yield;
+	}
+	set_frame("self", ENTITY_FRAME_STEP);
+	repeat 60 {
+		move("self", -12, 0);
+		yield;
+	}
+	set_frame("self", ENTITY_FRAME_IDLE);
+	say("Bye!<WAITBTN><CLEAR>");
+	wait();
+	lock();
+}
